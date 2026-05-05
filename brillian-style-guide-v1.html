@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brillian — Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    /* ═════════════════════════════════════════════════════════════════ */
+    /* BRILLIAN DESIGN TOKENS                                            */
+    /* Two layers: primitives (raw values) + semantic (role-based refs)  */
+    /* Components consume semantic tokens only.                          */
+    /* ═════════════════════════════════════════════════════════════════ */
+
+    /* ─────────────── LAYER 1 · PRIMITIVES ─────────────── */
+    /* Raw color values, organized by visual family.       */
+    /* Don't reference these directly in components.        */
+
+    /* Blue ramp */
+    --brillian-blue-50: #EEF3FE;
+    --brillian-blue-100: #DDE7FD;
+    --brillian-blue-200: #B7CBFB;
+    --brillian-blue-300: #8AA8F8;
+    --brillian-blue-400: #4D7DF5;
+    --brillian-blue-500: #265FF2;
+    --brillian-blue-600: #1A4DD3;
+    --brillian-blue-700: #1A3F9C;
+    --brillian-blue-800: #14306F;
+    --brillian-blue-900: #0F1F4A;
+
+    /* Navy ramp */
+    --brillian-navy-50: #E8EAF1;
+    --brillian-navy-100: #C5CAD9;
+    --brillian-navy-200: #8E97B4;
+    --brillian-navy-500: #2C3D6B;
+    --brillian-navy-700: #1A2A56;
+    --brillian-navy-900: #0F1F4A;
+
+    /* Lime ramp */
+    --brillian-lime-50: #F5FCDD;
+    --brillian-lime-100: #E0F491;
+    --brillian-lime-500: #87A902;
+    --brillian-lime-700: #4D7C2A;
+    --brillian-lime-900: #1F4D2A;
+
+    /* Red ramp */
+    --brillian-red-100: #FCD7D2;
+    --brillian-red-500: #DC2D24;
+    --brillian-red-900: #9B1F18;
+
+    /* Orange ramp */
+    --brillian-orange-100: #FBE0CC;
+    --brillian-orange-500: #DB5614;
+    --brillian-orange-900: #8C3508;
+
+    /* Amber ramp */
+    --brillian-amber-100: #FCEBB8;
+    --brillian-amber-500: #E8B321;
+    --brillian-amber-900: #7A5C0A;
+
+    /* Purple ramp */
+    --brillian-purple-100: #DDD3FA;
+    --brillian-purple-500: #5938E4;
+    --brillian-purple-900: #38228F;
+
+    /* Neutral ramp */
+    --brillian-neutral-50: #F9F8F7;
+    --brillian-neutral-100: #F4F2EE;
+    --brillian-neutral-200: #ECEAE6;
+    --brillian-neutral-300: #DCD9D2;
+    --brillian-neutral-500: #9AA0A6;
+    --brillian-neutral-600: #6B7280;
+    --brillian-neutral-700: #4B5563;
+    --brillian-neutral-900: #0F1F4A;
+
+    /* Reserved — marketing / data viz only */
+    --brillian-cyan-500: #0197FF;
+    --brillian-pink-500: #F66DBD;
+
+    /* ─────────────── LAYER 2 · SEMANTIC TOKENS ─────────────── */
+    /* Role-based names. Reference primitives.                  */
+    /* Components consume ONLY these.                           */
+
+    /* Brand */
+    --brillian-brand-primary: var(--brillian-blue-500);
+    --brillian-brand-primary-hover: var(--brillian-blue-600);
+    --brillian-brand-primary-active: var(--brillian-blue-700);
+    --brillian-brand-primary-tint: var(--brillian-blue-50);
+    --brillian-brand-primary-tint-strong: var(--brillian-blue-100);
+    --brillian-brand-dark: var(--brillian-navy-900);
+    --brillian-brand-accent: var(--brillian-lime-500);
+    --brillian-brand-accent-tint: var(--brillian-lime-100);
+    --brillian-brand-accent-dark: var(--brillian-lime-700);
+
+    /* Backgrounds */
+    --brillian-bg-canvas: var(--brillian-neutral-50);
+    --brillian-bg-surface: #FFFFFF;
+    --brillian-bg-muted: var(--brillian-neutral-100);
+    --brillian-bg-inverse: var(--brillian-navy-900);
+
+    /* Text */
+    --brillian-text-primary: var(--brillian-navy-900);
+    --brillian-text-secondary: var(--brillian-neutral-700);
+    --brillian-text-tertiary: var(--brillian-neutral-600);
+    --brillian-text-disabled: var(--brillian-neutral-500);
+    --brillian-text-on-brand: #FFFFFF;
+    --brillian-text-on-dark: #FFFFFF;
+    --brillian-text-eyebrow: var(--brillian-blue-500);
+
+    /* Borders */
+    --brillian-border-subtle: var(--brillian-neutral-200);
+    --brillian-border-strong: var(--brillian-neutral-300);
+    --brillian-border-divider: #F2F0EC;
+    --brillian-border-focus: var(--brillian-blue-500);
+
+    /* Status — high risk */
+    --brillian-status-danger: var(--brillian-red-500);
+    --brillian-status-danger-tint: var(--brillian-red-100);
+    --brillian-status-danger-dark: var(--brillian-red-900);
+
+    /* Status — critical */
+    --brillian-status-critical: var(--brillian-orange-500);
+    --brillian-status-critical-tint: var(--brillian-orange-100);
+    --brillian-status-critical-dark: var(--brillian-orange-900);
+
+    /* Status — moderate / warning */
+    --brillian-status-warning: var(--brillian-amber-500);
+    --brillian-status-warning-tint: var(--brillian-amber-100);
+    --brillian-status-warning-dark: var(--brillian-amber-900);
+
+    /* Status — at target / informational */
+    --brillian-status-info: var(--brillian-purple-500);
+    --brillian-status-info-tint: var(--brillian-purple-100);
+    --brillian-status-info-dark: var(--brillian-purple-900);
+
+    /* Status — above target / success */
+    --brillian-status-success: var(--brillian-lime-500);
+    --brillian-status-success-tint: var(--brillian-lime-100);
+    --brillian-status-success-dark: var(--brillian-lime-700);
+
+    /* Legacy aliases — kept for backwards compatibility, do not use in new code */
+    --brillian-bg-page: var(--brillian-bg-canvas);
+    --brillian-bg-surface-alt: var(--brillian-bg-muted);
+    --brillian-bg-deep: var(--brillian-bg-inverse);
+    --brillian-border-default: var(--brillian-border-subtle);
+
+    /* Typography */
+    --brillian-font-sans: 'Google Sans', 'Google Sans Text', -apple-system, sans-serif;
+    --brillian-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --brillian-text-xs: 11px;
+    --brillian-text-sm: 12px;
+    --brillian-text-base: 14px;
+    --brillian-text-md: 16px;
+    --brillian-text-lg: 20px;
+    --brillian-text-xl: 26px;
+    --brillian-text-2xl: 32px;
+    --brillian-text-3xl: 40px;
+
+    --brillian-weight-regular: 400;
+    --brillian-weight-medium: 500;
+    --brillian-weight-semibold: 600;
+    --brillian-weight-bold: 700;
+
+    --brillian-leading-tight: 1.2;
+    --brillian-leading-snug: 1.35;
+    --brillian-leading-normal: 1.5;
+    --brillian-leading-relaxed: 1.65;
+
+    --brillian-tracking-eyebrow: 0.7px;
+    --brillian-tracking-tight: -0.3px;
+
+    /* Spacing */
+    --brillian-space-1: 4px;
+    --brillian-space-2: 8px;
+    --brillian-space-3: 12px;
+    --brillian-space-4: 16px;
+    --brillian-space-5: 20px;
+    --brillian-space-6: 24px;
+    --brillian-space-8: 32px;
+    --brillian-space-10: 40px;
+    --brillian-space-12: 48px;
+
+    /* Radii */
+    --brillian-radius-button: 4px;
+    --brillian-radius-sm: 6px;
+    --brillian-radius-md: 8px;
+    --brillian-radius-lg: 12px;
+    --brillian-radius-xl: 16px;
+    --brillian-radius-pill: 100px;
+
+    /* Borders */
+    --brillian-border-width-hairline: 0.5px;
+    --brillian-border-width-default: 1px;
+    --brillian-border-width-accent: 2px;
+
+    /* Shadows */
+    --brillian-shadow-sm: 0 1px 2px rgba(15, 31, 74, 0.04);
+    --brillian-shadow-md: 0 1px 3px rgba(15, 31, 74, 0.08), 0 1px 2px rgba(15, 31, 74, 0.04);
+    --brillian-shadow-focus: 0 0 0 3px rgba(38, 95, 242, 0.18);
+
+    /* Motion */
+    --brillian-duration-fast: 0.15s;
+    --brillian-duration-base: 0.3s;
+    --brillian-duration-slow: 0.5s;
+    --brillian-easing-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ─── Page-only scaffolding (not part of the system) ─── */
+    --pg-max-width: 1080px;
+  }
+
+  body {
+    font-family: var(--brillian-font-sans);
+    color: var(--brillian-text-primary);
+    background: var(--brillian-bg-page);
+    line-height: var(--brillian-leading-normal);
+    -webkit-font-smoothing: antialiased;
+    padding: var(--brillian-space-8) var(--brillian-space-6);
+  }
+
+  .pg-container {
+    max-width: var(--pg-max-width);
+    margin: 0 auto;
+  }
+
+  /* ─────────── Cover ─────────── */
+  .pg-cover {
+    background: var(--brillian-bg-deep);
+    color: #fff;
+    border-radius: var(--brillian-radius-xl);
+    padding: var(--brillian-space-12) var(--brillian-space-10);
+    margin-bottom: var(--brillian-space-12);
+    position: relative;
+    overflow: hidden;
+  }
+  .pg-cover-mark {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: var(--brillian-blue-500);
+    opacity: 0.18;
+    filter: blur(0.5px);
+  }
+  .pg-cover-eyebrow {
+    font-size: var(--brillian-text-xs);
+    font-weight: var(--brillian-weight-medium);
+    letter-spacing: var(--brillian-tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--brillian-blue-200);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-cover-title {
+    font-size: var(--brillian-text-3xl);
+    font-weight: var(--brillian-weight-medium);
+    letter-spacing: -0.8px;
+    line-height: var(--brillian-leading-tight);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-cover-sub {
+    font-size: var(--brillian-text-md);
+    color: rgba(255,255,255,0.72);
+    max-width: 540px;
+    line-height: var(--brillian-leading-snug);
+  }
+  .pg-cover-meta {
+    display: flex;
+    gap: var(--brillian-space-6);
+    margin-top: var(--brillian-space-8);
+    flex-wrap: wrap;
+  }
+  .pg-cover-meta-item {
+    font-size: var(--brillian-text-sm);
+    color: rgba(255,255,255,0.55);
+  }
+  .pg-cover-meta-item strong {
+    color: #fff;
+    font-weight: var(--brillian-weight-medium);
+    margin-right: var(--brillian-space-2);
+  }
+
+  /* ─────────── Section structure ─────────── */
+  .pg-section {
+    margin-bottom: var(--brillian-space-12);
+  }
+  .pg-section-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--brillian-space-4);
+    margin-bottom: var(--brillian-space-6);
+    padding-bottom: var(--brillian-space-3);
+    border-bottom: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+  }
+  .pg-section-num {
+    font-family: var(--brillian-font-mono);
+    font-size: var(--brillian-text-sm);
+    color: var(--brillian-text-tertiary);
+    letter-spacing: 0.5px;
+  }
+  .pg-section-title {
+    font-size: var(--brillian-text-xl);
+    font-weight: var(--brillian-weight-medium);
+    letter-spacing: var(--brillian-tracking-tight);
+    color: var(--brillian-text-primary);
+  }
+  .pg-section-desc {
+    font-size: var(--brillian-text-base);
+    color: var(--brillian-text-secondary);
+    margin-bottom: var(--brillian-space-6);
+    max-width: 720px;
+    line-height: var(--brillian-leading-snug);
+  }
+
+  .pg-subsection-title {
+    font-size: var(--brillian-text-md);
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-primary);
+    margin-bottom: var(--brillian-space-3);
+    margin-top: var(--brillian-space-8);
+  }
+  .pg-subsection-title:first-child { margin-top: 0; }
+
+  /* ─────────── Token cards ─────────── */
+  .pg-token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--brillian-space-2);
+  }
+  .pg-token {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-3) var(--brillian-space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--brillian-space-3);
+  }
+  .pg-token-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--brillian-radius-sm);
+    flex-shrink: 0;
+    border: var(--brillian-border-width-hairline) solid rgba(15,31,74,0.06);
+  }
+  .pg-token-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .pg-token-name {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-primary);
+    font-weight: var(--brillian-weight-medium);
+    word-break: break-all;
+  }
+  .pg-token-hex {
+    font-size: 10px;
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+    text-transform: uppercase;
+  }
+
+  /* Semantic token visualization */
+  .pg-semantic-callout {
+    background: var(--brillian-blue-50);
+    border-left: 3px solid var(--brillian-blue-500);
+    padding: var(--brillian-space-3) var(--brillian-space-4);
+    margin-bottom: var(--brillian-space-6);
+    font-size: var(--brillian-text-sm);
+    color: var(--brillian-text-primary);
+    line-height: var(--brillian-leading-snug);
+    border-radius: 0 var(--brillian-radius-md) var(--brillian-radius-md) 0;
+  }
+  .pg-semantic-callout-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-blue-700);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: var(--brillian-space-2);
+  }
+
+  .pg-semantic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--brillian-space-2);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-semantic-card {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-3);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--brillian-space-3);
+  }
+  .pg-semantic-sw {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--brillian-radius-sm);
+    flex-shrink: 0;
+    border: var(--brillian-border-width-hairline) solid rgba(15,31,74,0.06);
+  }
+  .pg-semantic-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+  }
+  .pg-semantic-name {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-blue-700);
+    font-weight: var(--brillian-weight-medium);
+  }
+  .pg-semantic-arrow {
+    font-size: 10px;
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+  }
+  .pg-semantic-desc {
+    font-size: 11px;
+    color: var(--brillian-text-secondary);
+    line-height: var(--brillian-leading-snug);
+    margin-top: 4px;
+  }
+  .pg-semantic-note {
+    font-size: var(--brillian-text-sm);
+    color: var(--brillian-text-secondary);
+    line-height: var(--brillian-leading-snug);
+    margin-top: var(--brillian-space-3);
+    margin-bottom: var(--brillian-space-3);
+    padding: var(--brillian-space-3) var(--brillian-space-4);
+    background: var(--brillian-bg-surface-alt);
+    border-radius: var(--brillian-radius-md);
+  }
+
+  /* Primitive layer label */
+  .pg-primitive-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-tertiary);
+    background: var(--brillian-bg-surface-alt);
+    padding: 2px 8px;
+    border-radius: var(--brillian-radius-sm);
+    margin-left: var(--brillian-space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+  }
+  .pg-semantic-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-blue-700);
+    background: var(--brillian-blue-50);
+    padding: 2px 8px;
+    border-radius: var(--brillian-radius-sm);
+    margin-left: var(--brillian-space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+  }
+
+  /* Ramp display */
+  .pg-ramp {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: var(--brillian-space-1);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-ramp.pg-ramp-6 { grid-template-columns: repeat(6, 1fr); }
+  .pg-ramp.pg-ramp-5 { grid-template-columns: repeat(5, 1fr); }
+  .pg-ramp.pg-ramp-3 { grid-template-columns: repeat(3, 1fr); }
+  .pg-ramp-stop {
+    aspect-ratio: 1.4 / 1;
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pg-ramp-stop-num {
+    font-size: 10px;
+    font-family: var(--brillian-font-mono);
+    font-weight: var(--brillian-weight-medium);
+    letter-spacing: 0.3px;
+  }
+  .pg-ramp-stop-hex {
+    font-size: 9px;
+    font-family: var(--brillian-font-mono);
+    opacity: 0.78;
+  }
+
+  /* Status state row */
+  .pg-status-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--brillian-space-2);
+  }
+  .pg-status-card {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-4);
+  }
+  .pg-status-name {
+    font-size: var(--brillian-text-sm);
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-primary);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-status-pill {
+    display: inline-block;
+    font-size: var(--brillian-text-xs);
+    font-weight: var(--brillian-weight-medium);
+    padding: 4px 10px;
+    border-radius: var(--brillian-radius-pill);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-status-tokens {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pg-status-token {
+    display: flex;
+    align-items: center;
+    gap: var(--brillian-space-2);
+    font-size: 10px;
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+  }
+  .pg-status-token-sw {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: var(--brillian-border-width-hairline) solid rgba(15,31,74,0.06);
+  }
+
+  /* ─────────── Typography spec ─────────── */
+  .pg-type-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px 80px 80px;
+    gap: var(--brillian-space-4);
+    align-items: baseline;
+    padding: var(--brillian-space-3) 0;
+    border-bottom: var(--brillian-border-width-hairline) solid var(--brillian-border-divider);
+  }
+  .pg-type-grid:last-child { border-bottom: none; }
+  .pg-type-grid-head {
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: var(--brillian-border-width-default) solid var(--brillian-border-default);
+    padding-bottom: var(--brillian-space-2);
+  }
+  .pg-type-sample {
+    color: var(--brillian-text-primary);
+  }
+  .pg-type-meta {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+  }
+
+  /* ─────────── Spacing scale ─────────── */
+  .pg-spacing-row {
+    display: grid;
+    grid-template-columns: 100px 80px 80px 1fr;
+    gap: var(--brillian-space-4);
+    align-items: center;
+    padding: var(--brillian-space-3) 0;
+    border-bottom: var(--brillian-border-width-hairline) solid var(--brillian-border-divider);
+  }
+  .pg-spacing-row:last-child { border-bottom: none; }
+  .pg-spacing-token-name {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-primary);
+    font-weight: var(--brillian-weight-medium);
+  }
+  .pg-spacing-value {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+  }
+  .pg-spacing-bar {
+    height: 12px;
+    background: var(--brillian-blue-500);
+    border-radius: 2px;
+  }
+
+  /* ─────────── Radii ─────────── */
+  .pg-radii-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--brillian-space-3);
+  }
+  .pg-radii-card {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    padding: var(--brillian-space-4);
+  }
+  .pg-radii-shape {
+    width: 100%;
+    height: 56px;
+    background: var(--brillian-blue-500);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-radii-name {
+    font-size: var(--brillian-text-xs);
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-primary);
+    font-weight: var(--brillian-weight-medium);
+    margin-bottom: 2px;
+  }
+  .pg-radii-value {
+    font-size: 10px;
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-text-tertiary);
+  }
+
+  /* ─────────── Component examples ─────────── */
+  .pg-example {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-lg);
+    padding: var(--brillian-space-6);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-example-label {
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--brillian-space-4);
+  }
+
+  /* Buttons */
+  .brillian-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--brillian-space-2);
+    padding: 10px 18px;
+    border-radius: var(--brillian-radius-button);
+    font-family: var(--brillian-font-sans);
+    font-size: var(--brillian-text-base);
+    font-weight: var(--brillian-weight-medium);
+    border: var(--brillian-border-width-default) solid transparent;
+    cursor: pointer;
+    transition: all var(--brillian-duration-fast) var(--brillian-easing-out);
+  }
+  .brillian-button-primary {
+    background: var(--brillian-blue-500);
+    color: var(--brillian-text-on-brand);
+  }
+  .brillian-button-primary:hover {
+    background: var(--brillian-blue-600);
+  }
+  .brillian-button-secondary {
+    background: var(--brillian-bg-surface);
+    color: var(--brillian-blue-500);
+    border-color: var(--brillian-blue-500);
+  }
+  .brillian-button-secondary:hover {
+    background: var(--brillian-blue-50);
+  }
+  .brillian-button-ghost {
+    background: transparent;
+    color: var(--brillian-text-primary);
+  }
+  .brillian-button-ghost:hover {
+    background: var(--brillian-bg-surface-alt);
+  }
+
+  /* Pills */
+  .brillian-pill {
+    display: inline-block;
+    font-size: var(--brillian-text-xs);
+    font-weight: var(--brillian-weight-medium);
+    padding: 4px 10px;
+    border-radius: var(--brillian-radius-pill);
+  }
+  .brillian-pill-high { background: var(--brillian-red-tint); color: var(--brillian-red-dark); }
+  .brillian-pill-critical { background: var(--brillian-orange-tint); color: var(--brillian-orange-dark); }
+  .brillian-pill-moderate { background: var(--brillian-amber-tint); color: var(--brillian-amber-dark); }
+  .brillian-pill-track { background: var(--brillian-purple-tint); color: var(--brillian-purple-dark); }
+  .brillian-pill-above { background: var(--brillian-success-tint); color: var(--brillian-success-dark); }
+
+  /* Card */
+  .brillian-card {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-lg);
+    padding: var(--brillian-space-4) var(--brillian-space-5);
+  }
+  .brillian-card-brand {
+    background: var(--brillian-blue-500);
+    color: #fff;
+    border: none;
+  }
+
+  /* Eyebrow + heading */
+  .brillian-eyebrow {
+    font-size: var(--brillian-text-xs);
+    font-weight: var(--brillian-weight-medium);
+    letter-spacing: var(--brillian-tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--brillian-text-eyebrow);
+    margin-bottom: var(--brillian-space-1);
+  }
+  .brillian-heading {
+    font-size: var(--brillian-text-xl);
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-primary);
+    letter-spacing: var(--brillian-tracking-tight);
+    line-height: var(--brillian-leading-tight);
+  }
+  .brillian-subtitle {
+    font-size: var(--brillian-text-base);
+    color: var(--brillian-text-secondary);
+    margin-top: 4px;
+  }
+
+  /* ─────────── Usage rules table ─────────── */
+  .pg-rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brillian-space-4);
+  }
+  .pg-rules-col {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-5);
+  }
+  .pg-rules-head {
+    display: flex;
+    align-items: center;
+    gap: var(--brillian-space-2);
+    font-size: var(--brillian-text-sm);
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-primary);
+    margin-bottom: var(--brillian-space-3);
+  }
+  .pg-rules-head-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+  }
+  .pg-rules-head-icon-yes { background: var(--brillian-success-tint); color: var(--brillian-success-dark); }
+  .pg-rules-head-icon-no { background: var(--brillian-red-tint); color: var(--brillian-red-dark); }
+  .pg-rules-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--brillian-space-2);
+  }
+  .pg-rules-li {
+    font-size: var(--brillian-text-sm);
+    color: var(--brillian-text-secondary);
+    line-height: var(--brillian-leading-snug);
+    padding-left: var(--brillian-space-3);
+    position: relative;
+  }
+  .pg-rules-li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--brillian-text-tertiary);
+  }
+
+  /* ─────────── Code blocks ─────────── */
+  .pg-code {
+    background: var(--brillian-bg-deep);
+    color: #DCE3F2;
+    border-radius: var(--brillian-radius-md);
+    padding: var(--brillian-space-5);
+    font-family: var(--brillian-font-mono);
+    font-size: var(--brillian-text-xs);
+    line-height: var(--brillian-leading-relaxed);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .pg-code .c-key { color: #8AA8F8; }
+  .pg-code .c-val { color: #C2EBE5; }
+  .pg-code .c-com { color: #6B7280; font-style: italic; }
+  .pg-code .cr { color: #F4C575; }
+
+  /* ─────────── Naming convention table ─────────── */
+  .pg-naming-table {
+    background: var(--brillian-bg-surface);
+    border: var(--brillian-border-width-hairline) solid var(--brillian-border-default);
+    border-radius: var(--brillian-radius-md);
+    overflow: hidden;
+  }
+  .pg-naming-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: var(--brillian-space-3) var(--brillian-space-4);
+    border-bottom: var(--brillian-border-width-hairline) solid var(--brillian-border-divider);
+    font-size: var(--brillian-text-sm);
+    align-items: center;
+  }
+  .pg-naming-row:last-child { border-bottom: none; }
+  .pg-naming-head {
+    background: var(--brillian-bg-surface-alt);
+    font-size: 10px;
+    font-weight: var(--brillian-weight-medium);
+    color: var(--brillian-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .pg-naming-token {
+    font-family: var(--brillian-font-mono);
+    color: var(--brillian-blue-500);
+    font-weight: var(--brillian-weight-medium);
+    font-size: var(--brillian-text-xs);
+  }
+
+  /* ─────────── Responsive ─────────── */
+  @media (max-width: 768px) {
+    body { padding: var(--brillian-space-4); }
+    .pg-cover { padding: var(--brillian-space-8) var(--brillian-space-6); }
+    .pg-cover-title { font-size: 28px; }
+    .pg-status-row { grid-template-columns: 1fr 1fr; }
+    .pg-radii-grid { grid-template-columns: repeat(2, 1fr); }
+    .pg-rules-grid { grid-template-columns: 1fr; }
+    .pg-type-grid { grid-template-columns: 1fr; }
+    .pg-type-grid > *:nth-child(n+3) { display: none; }
+    .pg-spacing-row { grid-template-columns: 100px 1fr; }
+    .pg-spacing-row > *:nth-child(2),
+    .pg-spacing-row > *:nth-child(3) { display: none; }
+    .pg-naming-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pg-container">
+
+  <!-- ═══════════ COVER ═══════════ -->
+  <div class="pg-cover">
+    <div class="pg-cover-mark"></div>
+    <div class="pg-cover-eyebrow">Design system · v1.0</div>
+    <h1 class="pg-cover-title">Brillian</h1>
+    <p class="pg-cover-sub">Tokens, components, and usage rules for the Brillian business valuation and financial health platform. Built as a two-layer Chakra system — primitive color ramps underneath, semantic role-based tokens on top. Components consume the semantic layer only.</p>
+    <div class="pg-cover-meta">
+      <div class="pg-cover-meta-item"><strong>Architecture</strong>Primitive + semantic</div>
+      <div class="pg-cover-meta-item"><strong>Typeface</strong>Google Sans</div>
+      <div class="pg-cover-meta-item"><strong>Token format</strong>Chakra-compatible</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 01 · FOUNDATION ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">01</div>
+      <div class="pg-section-title">Foundation colors<span class="pg-primitive-tag">Primitive</span></div>
+    </div>
+    <p class="pg-section-desc">The base surfaces of the system. Cream paper provides a warm but contemporary canvas; navy carries authority and structural weight. Pure white is reserved for cards and elevated surfaces. These are <strong>primitives</strong> — components reference them through the semantic layer (see section 02), not directly.</p>
+
+    <div class="pg-token-grid">
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #F9F8F7;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">bg.page</div>
+          <div class="pg-token-hex">#F9F8F7</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #FFFFFF; border-color: #DCD9D2;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">bg.surface</div>
+          <div class="pg-token-hex">#FFFFFF</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #F4F2EE;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">bg.surface.alt</div>
+          <div class="pg-token-hex">#F4F2EE</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #0F1F4A;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">bg.deep</div>
+          <div class="pg-token-hex">#0F1F4A</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 02 · SEMANTIC TOKENS ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">02</div>
+      <div class="pg-section-title">Semantic tokens<span class="pg-semantic-tag">Semantic</span></div>
+    </div>
+    <p class="pg-section-desc">The interface components consume. Every semantic token is a reference to a primitive — components never read raw <code>blue.500</code>, they read <code>brand.primary</code>. This is what lets a rebrand, dark mode, or print variant happen without touching component code.</p>
+
+    <div class="pg-semantic-callout">
+      <span class="pg-semantic-callout-tag">Architecture rule</span>
+      Components reference <strong>semantic</strong> tokens. Semantic tokens reference <strong>primitives</strong>. Primitives hold the hex values. Don't skip a layer.
+    </div>
+
+    <div class="pg-subsection-title">Brand</div>
+    <div class="pg-semantic-grid">
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #265FF2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.primary</div>
+          <div class="pg-semantic-arrow">→ blue.500</div>
+          <div class="pg-semantic-desc">Hero cards, primary CTAs, score rings, eyebrows</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #1A4DD3;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.primary.hover</div>
+          <div class="pg-semantic-arrow">→ blue.600</div>
+          <div class="pg-semantic-desc">Button hover states, link hover</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #1A3F9C;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.primary.active</div>
+          <div class="pg-semantic-arrow">→ blue.700</div>
+          <div class="pg-semantic-desc">Button pressed states</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #EEF3FE;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.primary.tint</div>
+          <div class="pg-semantic-arrow">→ blue.50</div>
+          <div class="pg-semantic-desc">KPI pill backgrounds, secondary button hover</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #DDE7FD;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.primary.tint.strong</div>
+          <div class="pg-semantic-arrow">→ blue.100</div>
+          <div class="pg-semantic-desc">Icon tinted backgrounds, benchmark "high" zone</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #0F1F4A;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.dark</div>
+          <div class="pg-semantic-arrow">→ navy.900</div>
+          <div class="pg-semantic-desc">Report headers, score-card bg, headlines</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #87A902;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.accent</div>
+          <div class="pg-semantic-arrow">→ lime.500</div>
+          <div class="pg-semantic-desc">Excess cash flow, positive deltas, "growing" badges</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #E0F491;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.accent.tint</div>
+          <div class="pg-semantic-arrow">→ lime.100</div>
+          <div class="pg-semantic-desc">Above-target pill background, growth-tag bg</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #4D7C2A;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">brand.accent.dark</div>
+          <div class="pg-semantic-arrow">→ lime.700</div>
+          <div class="pg-semantic-desc">Text on accent.tint</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Background</div>
+    <div class="pg-semantic-grid">
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #F9F8F7;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">bg.canvas</div>
+          <div class="pg-semantic-arrow">→ neutral.50</div>
+          <div class="pg-semantic-desc">Page-level background</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #FFFFFF; border-color: #DCD9D2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">bg.surface</div>
+          <div class="pg-semantic-arrow">→ white</div>
+          <div class="pg-semantic-desc">Cards, modals, popovers — anything raised</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #F4F2EE;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">bg.muted</div>
+          <div class="pg-semantic-arrow">→ neutral.100</div>
+          <div class="pg-semantic-desc">Recessed surfaces, ghost button hover, bar tracks</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #0F1F4A;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">bg.inverse</div>
+          <div class="pg-semantic-arrow">→ navy.900</div>
+          <div class="pg-semantic-desc">Navy summary bands, score cards, code blocks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Text</div>
+    <div class="pg-semantic-grid">
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #0F1F4A;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.primary</div>
+          <div class="pg-semantic-arrow">→ navy.900</div>
+          <div class="pg-semantic-desc">Headlines, body copy, key values</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #4B5563;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.secondary</div>
+          <div class="pg-semantic-arrow">→ neutral.700</div>
+          <div class="pg-semantic-desc">Descriptions, supporting copy</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #6B7280;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.tertiary</div>
+          <div class="pg-semantic-arrow">→ neutral.600</div>
+          <div class="pg-semantic-desc">Sub-labels, metadata, timestamps</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #9AA0A6;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.disabled</div>
+          <div class="pg-semantic-arrow">→ neutral.500</div>
+          <div class="pg-semantic-desc">Disabled inputs, placeholder text</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #265FF2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.eyebrow</div>
+          <div class="pg-semantic-arrow">→ brand.primary</div>
+          <div class="pg-semantic-desc">Section eyebrows, in-card category labels</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #FFFFFF; border-color: #DCD9D2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">text.on.brand</div>
+          <div class="pg-semantic-arrow">→ white</div>
+          <div class="pg-semantic-desc">Text on brand.primary or brand.dark fills</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Status</div>
+    <div class="pg-semantic-grid">
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #DC2D24;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">status.danger</div>
+          <div class="pg-semantic-arrow">→ red.500</div>
+          <div class="pg-semantic-desc">"High risk" — debt threshold, runway alarm</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #DB5614;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">status.critical</div>
+          <div class="pg-semantic-arrow">→ orange.500</div>
+          <div class="pg-semantic-desc">"Critical" — material problems requiring action</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #E8B321;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">status.warning</div>
+          <div class="pg-semantic-arrow">→ amber.500</div>
+          <div class="pg-semantic-desc">"Moderate" — watch trend, no immediate action</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #5938E4;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">status.info</div>
+          <div class="pg-semantic-arrow">→ purple.500</div>
+          <div class="pg-semantic-desc">"At target" — hitting your number</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #87A902;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">status.success</div>
+          <div class="pg-semantic-arrow">→ lime.500</div>
+          <div class="pg-semantic-desc">"Above target" — exceeding benchmark</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pg-semantic-note">Each <code>status.*</code> token has matching <code>.tint</code> (background) and <code>.dark</code> (text on tint) variants. Always use the triplet together — never mix-and-match across status types.</p>
+
+    <div class="pg-subsection-title">Border</div>
+    <div class="pg-semantic-grid">
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #ECEAE6;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">border.subtle</div>
+          <div class="pg-semantic-arrow">→ neutral.200</div>
+          <div class="pg-semantic-desc">Card outlines, input borders</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #DCD9D2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">border.strong</div>
+          <div class="pg-semantic-arrow">→ neutral.300</div>
+          <div class="pg-semantic-desc">Hover states, active emphasis</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #F2F0EC;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">border.divider</div>
+          <div class="pg-semantic-arrow">→ neutral.100</div>
+          <div class="pg-semantic-desc">Row dividers in lists, internal separators</div>
+        </div>
+      </div>
+      <div class="pg-semantic-card">
+        <div class="pg-semantic-sw" style="background: #265FF2;"></div>
+        <div class="pg-semantic-meta">
+          <div class="pg-semantic-name">border.focus</div>
+          <div class="pg-semantic-arrow">→ brand.primary</div>
+          <div class="pg-semantic-desc">Keyboard focus rings, active inputs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 03 · BRAND BLUE ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">03</div>
+      <div class="pg-section-title">Brand blue<span class="pg-primitive-tag">Primitive</span></div>
+    </div>
+    <p class="pg-section-desc">The raw blue ramp anchored at <code>blue.500 = #265FF2</code>. Components shouldn't reference these directly — they reference <code>brand.primary</code> from the semantic layer above. The ramp is shown here for designers and for the rare cases where a specific stop is needed (e.g. benchmark zones).</p>
+
+    <div class="pg-ramp">
+      <div class="pg-ramp-stop" style="background: #EEF3FE; color: #14306F;">
+        <div class="pg-ramp-stop-num">50</div>
+        <div class="pg-ramp-stop-hex">#EEF3FE</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #DDE7FD; color: #14306F;">
+        <div class="pg-ramp-stop-num">100</div>
+        <div class="pg-ramp-stop-hex">#DDE7FD</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #B7CBFB; color: #14306F;">
+        <div class="pg-ramp-stop-num">200</div>
+        <div class="pg-ramp-stop-hex">#B7CBFB</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #8AA8F8; color: #14306F;">
+        <div class="pg-ramp-stop-num">300</div>
+        <div class="pg-ramp-stop-hex">#8AA8F8</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #4D7DF5; color: #fff;">
+        <div class="pg-ramp-stop-num">400</div>
+        <div class="pg-ramp-stop-hex">#4D7DF5</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #265FF2; color: #fff;">
+        <div class="pg-ramp-stop-num">500 ★</div>
+        <div class="pg-ramp-stop-hex">#265FF2</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #1A4DD3; color: #fff;">
+        <div class="pg-ramp-stop-num">600</div>
+        <div class="pg-ramp-stop-hex">#1A4DD3</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #1A3F9C; color: #fff;">
+        <div class="pg-ramp-stop-num">700</div>
+        <div class="pg-ramp-stop-hex">#1A3F9C</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #14306F; color: #fff;">
+        <div class="pg-ramp-stop-num">800</div>
+        <div class="pg-ramp-stop-hex">#14306F</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #0F1F4A; color: #fff;">
+        <div class="pg-ramp-stop-num">900</div>
+        <div class="pg-ramp-stop-hex">#0F1F4A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 04 · NAVY ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">04</div>
+      <div class="pg-section-title">Navy<span class="pg-primitive-tag">Primitive</span></div>
+    </div>
+    <p class="pg-section-desc">The navy ramp. Referenced as <code>brand.dark</code> at the semantic layer for report headers, summary bands, and primary text. Used as a background for elevated content, never as a page background.</p>
+
+    <div class="pg-ramp pg-ramp-6">
+      <div class="pg-ramp-stop" style="background: #E8EAF1; color: #0F1F4A;">
+        <div class="pg-ramp-stop-num">50</div>
+        <div class="pg-ramp-stop-hex">#E8EAF1</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #C5CAD9; color: #0F1F4A;">
+        <div class="pg-ramp-stop-num">100</div>
+        <div class="pg-ramp-stop-hex">#C5CAD9</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #8E97B4; color: #fff;">
+        <div class="pg-ramp-stop-num">200</div>
+        <div class="pg-ramp-stop-hex">#8E97B4</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #2C3D6B; color: #fff;">
+        <div class="pg-ramp-stop-num">500</div>
+        <div class="pg-ramp-stop-hex">#2C3D6B</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #1A2A56; color: #fff;">
+        <div class="pg-ramp-stop-num">700</div>
+        <div class="pg-ramp-stop-hex">#1A2A56</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #0F1F4A; color: #fff;">
+        <div class="pg-ramp-stop-num">900 ★</div>
+        <div class="pg-ramp-stop-hex">#0F1F4A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 05 · LIME ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">05</div>
+      <div class="pg-section-title">Lime · growth accent<span class="pg-primitive-tag">Primitive</span></div>
+    </div>
+    <p class="pg-section-desc">The lime ramp. Referenced as <code>brand.accent</code> at the semantic layer for momentum signals, and as <code>status.success</code> for the "above target" state. Reserved for forward motion: positive deltas, "growing" badges, excess cash flow. The 500 anchor sits in the deeper olive range — saturated enough to read as a confident growth signal next to navy, restrained enough to belong on a financial product. Dark stops (700–900) shift to forest green for legibility as text on cream and white.</p>
+
+    <div class="pg-ramp pg-ramp-5">
+      <div class="pg-ramp-stop" style="background: #F5FCDD; color: #1F4D2A;">
+        <div class="pg-ramp-stop-num">50</div>
+        <div class="pg-ramp-stop-hex">#F5FCDD</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #E0F491; color: #1F4D2A;">
+        <div class="pg-ramp-stop-num">100</div>
+        <div class="pg-ramp-stop-hex">#E0F491</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #87A902; color: #fff;">
+        <div class="pg-ramp-stop-num">500 ★</div>
+        <div class="pg-ramp-stop-hex">#87A902</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #4D7C2A; color: #fff;">
+        <div class="pg-ramp-stop-num">700</div>
+        <div class="pg-ramp-stop-hex">#4D7C2A</div>
+      </div>
+      <div class="pg-ramp-stop" style="background: #1F4D2A; color: #fff;">
+        <div class="pg-ramp-stop-num">900</div>
+        <div class="pg-ramp-stop-hex">#1F4D2A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 06 · STATUS PALETTE ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">06</div>
+      <div class="pg-section-title">Status states · secondary palette<span class="pg-primitive-tag">Primitive</span></div>
+    </div>
+    <p class="pg-section-desc">The five status primitives. At the semantic layer these become <code>status.danger</code>, <code>status.critical</code>, <code>status.warning</code>, <code>status.info</code>, and <code>status.success</code>. Each gets a <code>tint / base / dark</code> triplet — always used together, never mixed across status types. Status colors live only in pills, dots, icon tints, and small marks — never as full surfaces.</p>
+
+    <div class="pg-status-row">
+      <div class="pg-status-card">
+        <div class="pg-status-name">High risk</div>
+        <span class="pg-status-pill" style="background: #FCD7D2; color: #9B1F18;">High risk</span>
+        <div class="pg-status-tokens">
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #FCD7D2;"></span>red.tint</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #DC2D24;"></span>red.base</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #9B1F18;"></span>red.dark</div>
+        </div>
+      </div>
+      <div class="pg-status-card">
+        <div class="pg-status-name">Critical</div>
+        <span class="pg-status-pill" style="background: #FBE0CC; color: #8C3508;">Critical</span>
+        <div class="pg-status-tokens">
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #FBE0CC;"></span>orange.tint</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #DB5614;"></span>orange.base</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #8C3508;"></span>orange.dark</div>
+        </div>
+      </div>
+      <div class="pg-status-card">
+        <div class="pg-status-name">Moderate</div>
+        <span class="pg-status-pill" style="background: #FCEBB8; color: #7A5C0A;">Moderate</span>
+        <div class="pg-status-tokens">
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #FCEBB8;"></span>amber.tint</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #E8B321;"></span>amber.base</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #7A5C0A;"></span>amber.dark</div>
+        </div>
+      </div>
+      <div class="pg-status-card">
+        <div class="pg-status-name">At target</div>
+        <span class="pg-status-pill" style="background: #DDD3FA; color: #38228F;">At target</span>
+        <div class="pg-status-tokens">
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #DDD3FA;"></span>purple.tint</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #5938E4;"></span>purple.base</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #38228F;"></span>purple.dark</div>
+        </div>
+      </div>
+      <div class="pg-status-card">
+        <div class="pg-status-name">Above target</div>
+        <span class="pg-status-pill" style="background: #E0F491; color: #4D7C2A;">Above target</span>
+        <div class="pg-status-tokens">
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #E0F491;"></span>success.tint</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #87A902;"></span>success.base</div>
+          <div class="pg-status-token"><span class="pg-status-token-sw" style="background: #4D7C2A;"></span>success.dark</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Reserved colors · marketing &amp; data viz only</div>
+    <div class="pg-token-grid">
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #0197FF;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">cyan.base</div>
+          <div class="pg-token-hex">#0197FF</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #F66DBD;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">pink.base</div>
+          <div class="pg-token-hex">#F66DBD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 07 · TEXT ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">07</div>
+      <div class="pg-section-title">Text colors</div>
+    </div>
+    <p class="pg-section-desc">Headlines and body text default to navy <code>#0F1F4A</code>, not pure black. The subtle warmth-cool contrast against the cream foundation is what makes the system feel composed.</p>
+
+    <div class="pg-token-grid">
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #0F1F4A;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.primary</div>
+          <div class="pg-token-hex">#0F1F4A</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #4B5563;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.secondary</div>
+          <div class="pg-token-hex">#4B5563</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #6B7280;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.tertiary</div>
+          <div class="pg-token-hex">#6B7280</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #9AA0A6;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.disabled</div>
+          <div class="pg-token-hex">#9AA0A6</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #265FF2;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.eyebrow</div>
+          <div class="pg-token-hex">#265FF2</div>
+        </div>
+      </div>
+      <div class="pg-token">
+        <div class="pg-token-swatch" style="background: #FFFFFF; border-color: #DCD9D2;"></div>
+        <div class="pg-token-meta">
+          <div class="pg-token-name">text.on.brand</div>
+          <div class="pg-token-hex">#FFFFFF</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 08 · TYPOGRAPHY ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">08</div>
+      <div class="pg-section-title">Typography</div>
+    </div>
+    <p class="pg-section-desc">Google Sans across all surfaces. Two weights — 500 medium for emphasis, 400 regular for body. Headings stay in medium, never bold or semibold.</p>
+
+    <div class="pg-type-grid pg-type-grid-head">
+      <div>Sample</div>
+      <div>Token</div>
+      <div>Size</div>
+      <div>Weight</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 40px; font-weight: 500; letter-spacing: -0.8px; line-height: 1.1;">Display</div>
+      <div class="pg-type-meta">text.3xl</div>
+      <div class="pg-type-meta">40 / 1.1</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 32px; font-weight: 500; letter-spacing: -0.5px; line-height: 1.15;">Heading XL</div>
+      <div class="pg-type-meta">text.2xl</div>
+      <div class="pg-type-meta">32 / 1.15</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 26px; font-weight: 500; letter-spacing: -0.3px; line-height: 1.2;">Heading L</div>
+      <div class="pg-type-meta">text.xl</div>
+      <div class="pg-type-meta">26 / 1.2</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 20px; font-weight: 500; letter-spacing: -0.2px; line-height: 1.3;">Heading M</div>
+      <div class="pg-type-meta">text.lg</div>
+      <div class="pg-type-meta">20 / 1.3</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 16px; font-weight: 500;">Heading S</div>
+      <div class="pg-type-meta">text.md</div>
+      <div class="pg-type-meta">16 / 1.5</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 14px;">Body — base body copy size for product UI and reports.</div>
+      <div class="pg-type-meta">text.base</div>
+      <div class="pg-type-meta">14 / 1.5</div>
+      <div class="pg-type-meta">400</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 12px;">Caption — metadata, sub-labels, supporting text.</div>
+      <div class="pg-type-meta">text.sm</div>
+      <div class="pg-type-meta">12 / 1.5</div>
+      <div class="pg-type-meta">400</div>
+    </div>
+    <div class="pg-type-grid">
+      <div class="pg-type-sample" style="font-size: 11px; font-weight: 500; letter-spacing: 0.7px; text-transform: uppercase; color: #265FF2;">Eyebrow</div>
+      <div class="pg-type-meta">text.xs</div>
+      <div class="pg-type-meta">11 / 1.5</div>
+      <div class="pg-type-meta">500</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 09 · SPACING ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">09</div>
+      <div class="pg-section-title">Spacing scale</div>
+    </div>
+    <p class="pg-section-desc">A 4px-based scale. Use 4–8px for component-internal gaps, 12–24px for related elements, 32–48px for section breaks.</p>
+
+    <div class="pg-spacing-row" style="border-bottom-width: 2px; border-bottom-style: solid;">
+      <div class="pg-spacing-token-name" style="color: #6B7280;">Token</div>
+      <div class="pg-spacing-value" style="color: #6B7280;">Value</div>
+      <div></div>
+      <div class="pg-spacing-value" style="color: #6B7280;">Use for</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.1</div>
+      <div class="pg-spacing-value">4px</div>
+      <div><div class="pg-spacing-bar" style="width: 4px;"></div></div>
+      <div class="pg-spacing-value">Icon-to-text gap, inline elements</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.2</div>
+      <div class="pg-spacing-value">8px</div>
+      <div><div class="pg-spacing-bar" style="width: 8px;"></div></div>
+      <div class="pg-spacing-value">Pill padding, tight gaps</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.3</div>
+      <div class="pg-spacing-value">12px</div>
+      <div><div class="pg-spacing-bar" style="width: 12px;"></div></div>
+      <div class="pg-spacing-value">Card-internal gaps, button padding</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.4</div>
+      <div class="pg-spacing-value">16px</div>
+      <div><div class="pg-spacing-bar" style="width: 16px;"></div></div>
+      <div class="pg-spacing-value">Card padding, list-item gaps</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.5</div>
+      <div class="pg-spacing-value">20px</div>
+      <div><div class="pg-spacing-bar" style="width: 20px;"></div></div>
+      <div class="pg-spacing-value">Card padding (large)</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.6</div>
+      <div class="pg-spacing-value">24px</div>
+      <div><div class="pg-spacing-bar" style="width: 24px;"></div></div>
+      <div class="pg-spacing-value">Module padding, section gaps</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.8</div>
+      <div class="pg-spacing-value">32px</div>
+      <div><div class="pg-spacing-bar" style="width: 32px;"></div></div>
+      <div class="pg-spacing-value">Section breaks within a page</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.10</div>
+      <div class="pg-spacing-value">40px</div>
+      <div><div class="pg-spacing-bar" style="width: 40px;"></div></div>
+      <div class="pg-spacing-value">Major section gaps</div>
+    </div>
+    <div class="pg-spacing-row">
+      <div class="pg-spacing-token-name">space.12</div>
+      <div class="pg-spacing-value">48px</div>
+      <div><div class="pg-spacing-bar" style="width: 48px;"></div></div>
+      <div class="pg-spacing-value">Hero / cover spacing</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 10 · RADII ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">10</div>
+      <div class="pg-section-title">Border radius</div>
+    </div>
+    <p class="pg-section-desc">Six radii cover every surface in the system. Buttons get a sharp <code>radius.button</code> (4px) that sets them apart from pills — a deliberate corner language that reads more financial-product, less consumer-app. Cards default to <code>radius.lg</code>, pills always use <code>radius.pill</code>, micro-elements use <code>radius.sm</code>.</p>
+
+    <div class="pg-radii-grid">
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 4px;"></div>
+        <div class="pg-radii-name">radius.button</div>
+        <div class="pg-radii-value">4px</div>
+      </div>
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 6px;"></div>
+        <div class="pg-radii-name">radius.sm</div>
+        <div class="pg-radii-value">6px</div>
+      </div>
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 8px;"></div>
+        <div class="pg-radii-name">radius.md</div>
+        <div class="pg-radii-value">8px</div>
+      </div>
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 12px;"></div>
+        <div class="pg-radii-name">radius.lg</div>
+        <div class="pg-radii-value">12px</div>
+      </div>
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 16px;"></div>
+        <div class="pg-radii-name">radius.xl</div>
+        <div class="pg-radii-value">16px</div>
+      </div>
+      <div class="pg-radii-card">
+        <div class="pg-radii-shape" style="border-radius: 100px;"></div>
+        <div class="pg-radii-name">radius.pill</div>
+        <div class="pg-radii-value">100px</div>
+      </div>
+    </div>
+
+    <div class="pg-semantic-callout" style="margin-top: 24px;">
+      <span class="pg-semantic-callout-tag">Exception</span>
+      Marketing-site CTA buttons use <code>radius.pill</code> (100px) for a friendlier feel — a deliberate exception to the 4px button rule. Inside product UI, buttons remain sharp at <code>radius.button</code> (4px) to read as a financial tool.
+    </div>
+  </div>
+
+  <!-- ═══════════ 11 · COMPONENTS ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">11</div>
+      <div class="pg-section-title">Core components</div>
+    </div>
+    <p class="pg-section-desc">Concrete patterns built from the tokens above. These are reference implementations — when in doubt, lean on these specs rather than inventing new variants.</p>
+
+    <div class="pg-subsection-title">Buttons</div>
+    <div class="pg-example">
+      <div class="pg-example-label">Primary · secondary · ghost</div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="brillian-button brillian-button-primary">Show me how →</button>
+        <button class="brillian-button brillian-button-secondary">View benchmarks</button>
+        <button class="brillian-button brillian-button-ghost">Cancel</button>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Status pills</div>
+    <div class="pg-example">
+      <div class="pg-example-label">Five-state ramp</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <span class="brillian-pill brillian-pill-high">High risk</span>
+        <span class="brillian-pill brillian-pill-critical">Critical</span>
+        <span class="brillian-pill brillian-pill-moderate">Moderate</span>
+        <span class="brillian-pill brillian-pill-track">At target</span>
+        <span class="brillian-pill brillian-pill-above">Above target</span>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Cards</div>
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; margin-bottom: 12px;">
+      <div class="brillian-card brillian-card-brand">
+        <div style="font-size: 11px; color: rgba(255,255,255,0.78); margin-bottom: 6px;">Estimated business value</div>
+        <div style="font-size: 30px; font-weight: 500; letter-spacing: -0.6px; margin-bottom: 3px;">$2.4M</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.62);">Based on 4.2× SDE multiple</div>
+      </div>
+      <div class="brillian-card">
+        <div style="font-size: 11px; color: var(--brillian-text-tertiary); margin-bottom: 6px;">Excess cash flow</div>
+        <div style="font-size: 30px; font-weight: 500; letter-spacing: -0.6px; color: var(--brillian-lime-700); margin-bottom: 3px;">$186K</div>
+        <div style="font-size: 11px; color: var(--brillian-text-tertiary);">Annual, after owner comp</div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Eyebrow + heading + subtitle</div>
+    <div class="pg-example">
+      <div class="brillian-eyebrow">Business valuation</div>
+      <div class="brillian-heading">Your business as an asset</div>
+      <div class="brillian-subtitle">The largest asset in your portfolio, finally measured</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 12 · USAGE RULES ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">12</div>
+      <div class="pg-section-title">Usage rules</div>
+    </div>
+    <p class="pg-section-desc">The system holds together because saturated colors are <em>rare</em>. These rules govern where each color tier can appear.</p>
+
+    <div class="pg-subsection-title">Status / secondary palette</div>
+    <div class="pg-rules-grid">
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-yes">✓</span>
+          Where it can appear
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Status pills and tags (≤11px text)</li>
+          <li class="pg-rules-li">Status dots (≤9px diameter)</li>
+          <li class="pg-rules-li">Icon tints (tinted bg + dark glyph)</li>
+          <li class="pg-rules-li">Micro-bars and sparkline strokes</li>
+          <li class="pg-rules-li">Single delta numbers (↑ +12%)</li>
+          <li class="pg-rules-li">Categorical chart segments (≤4 at once)</li>
+        </ul>
+      </div>
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-no">✕</span>
+          Where it never appears
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Hero cards or full-bleed surfaces</li>
+          <li class="pg-rules-li">Card backgrounds or wrappers</li>
+          <li class="pg-rules-li">Page or section backgrounds</li>
+          <li class="pg-rules-li">Buttons, CTAs, primary actions</li>
+          <li class="pg-rules-li">Headlines or body text</li>
+          <li class="pg-rules-li">Borders or dividers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Color hierarchy</div>
+    <div class="pg-rules-grid">
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-yes">1</span>
+          Primary — brand blue
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Hero valuation cards</li>
+          <li class="pg-rules-li">Primary CTAs and buttons</li>
+          <li class="pg-rules-li">Health score rings</li>
+          <li class="pg-rules-li">Eyebrows and section markers</li>
+          <li class="pg-rules-li">Benchmark bar fills</li>
+        </ul>
+      </div>
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-yes">2</span>
+          Structural — navy
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Report header bands</li>
+          <li class="pg-rules-li">Score-card backgrounds</li>
+          <li class="pg-rules-li">Headlines and primary text</li>
+          <li class="pg-rules-li">Deep accent surfaces</li>
+          <li class="pg-rules-li">Print-context anchors</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pg-rules-grid" style="margin-top: 12px;">
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-yes">3</span>
+          Growth — lime
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Excess cash flow figures</li>
+          <li class="pg-rules-li">Positive YoY deltas</li>
+          <li class="pg-rules-li">"Growing" / "Above target" badges</li>
+          <li class="pg-rules-li">Forward-momentum signals</li>
+        </ul>
+      </div>
+      <div class="pg-rules-col">
+        <div class="pg-rules-head">
+          <span class="pg-rules-head-icon pg-rules-head-icon-yes">4</span>
+          Status — secondary
+        </div>
+        <ul class="pg-rules-list">
+          <li class="pg-rules-li">Five-state callouts only</li>
+          <li class="pg-rules-li">Always small surfaces</li>
+          <li class="pg-rules-li">Always paired tint + dark for legibility</li>
+          <li class="pg-rules-li">Never a substitute for primary blue</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 13 · NAMING CONVENTIONS ═══════════ -->
+  <div class="pg-section">
+    <div class="pg-section-head">
+      <div class="pg-section-num">13</div>
+      <div class="pg-section-title">Naming conventions</div>
+    </div>
+    <p class="pg-section-desc">Tokens follow Chakra's <code>category.name.modifier</code> pattern. CSS variables prefix with <code>--brillian-</code>; Chakra theme keys use nested objects. Primitives use color-family names; semantic tokens use role-based names.</p>
+
+    <div class="pg-naming-table">
+      <div class="pg-naming-row pg-naming-head">
+        <div>Layer / type</div>
+        <div>Token name</div>
+        <div>CSS variable</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Primitive · color</div>
+        <div class="pg-naming-token">blue.500</div>
+        <div class="pg-naming-token">--brillian-blue-500</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Primitive · color</div>
+        <div class="pg-naming-token">lime.100</div>
+        <div class="pg-naming-token">--brillian-lime-100</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Semantic · brand</div>
+        <div class="pg-naming-token">brand.primary</div>
+        <div class="pg-naming-token">--brillian-brand-primary</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Semantic · text</div>
+        <div class="pg-naming-token">text.primary</div>
+        <div class="pg-naming-token">--brillian-text-primary</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Semantic · status</div>
+        <div class="pg-naming-token">status.danger.tint</div>
+        <div class="pg-naming-token">--brillian-status-danger-tint</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Semantic · bg</div>
+        <div class="pg-naming-token">bg.canvas</div>
+        <div class="pg-naming-token">--brillian-bg-canvas</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Spacing</div>
+        <div class="pg-naming-token">space.6</div>
+        <div class="pg-naming-token">--brillian-space-6</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Radius</div>
+        <div class="pg-naming-token">radii.button</div>
+        <div class="pg-naming-token">--brillian-radius-button</div>
+      </div>
+      <div class="pg-naming-row">
+        <div style="font-size: 11px; color: #6B7280;">Typography</div>
+        <div class="pg-naming-token">fontSizes.xl</div>
+        <div class="pg-naming-token">--brillian-text-xl</div>
+      </div>
+    </div>
+
+    <div class="pg-subsection-title">Chakra theme integration · two-layer pattern</div>
+    <div class="pg-code"><span class="c-com">// theme/foundations/colors.ts</span>
+<span class="c-com">// LAYER 1 · Primitives — raw color values, organized by family</span>
+<span class="c-key">export const</span> primitiveColors = {
+  blue: {
+    50: <span class="c-val">'#EEF3FE'</span>, 100: <span class="c-val">'#DDE7FD'</span>, 200: <span class="c-val">'#B7CBFB'</span>,
+    300: <span class="c-val">'#8AA8F8'</span>, 400: <span class="c-val">'#4D7DF5'</span>, 500: <span class="c-val">'#265FF2'</span>,
+    600: <span class="c-val">'#1A4DD3'</span>, 700: <span class="c-val">'#1A3F9C'</span>, 800: <span class="c-val">'#14306F'</span>,
+    900: <span class="c-val">'#0F1F4A'</span>,
+  },
+  navy: {
+    50: <span class="c-val">'#E8EAF1'</span>, 100: <span class="c-val">'#C5CAD9'</span>, 200: <span class="c-val">'#8E97B4'</span>,
+    500: <span class="c-val">'#2C3D6B'</span>, 700: <span class="c-val">'#1A2A56'</span>, 900: <span class="c-val">'#0F1F4A'</span>,
+  },
+  lime: {
+    50: <span class="c-val">'#F5FCDD'</span>, 100: <span class="c-val">'#E0F491'</span>,
+    500: <span class="c-val">'#87A902'</span>, 700: <span class="c-val">'#4D7C2A'</span>, 900: <span class="c-val">'#1F4D2A'</span>,
+  },
+  red: { 100: <span class="c-val">'#FCD7D2'</span>, 500: <span class="c-val">'#DC2D24'</span>, 900: <span class="c-val">'#9B1F18'</span> },
+  orange: { 100: <span class="c-val">'#FBE0CC'</span>, 500: <span class="c-val">'#DB5614'</span>, 900: <span class="c-val">'#8C3508'</span> },
+  amber: { 100: <span class="c-val">'#FCEBB8'</span>, 500: <span class="c-val">'#E8B321'</span>, 900: <span class="c-val">'#7A5C0A'</span> },
+  purple: { 100: <span class="c-val">'#DDD3FA'</span>, 500: <span class="c-val">'#5938E4'</span>, 900: <span class="c-val">'#38228F'</span> },
+  neutral: {
+    50: <span class="c-val">'#F9F8F7'</span>, 100: <span class="c-val">'#F4F2EE'</span>, 200: <span class="c-val">'#ECEAE6'</span>,
+    300: <span class="c-val">'#DCD9D2'</span>, 500: <span class="c-val">'#9AA0A6'</span>,
+    600: <span class="c-val">'#6B7280'</span>, 700: <span class="c-val">'#4B5563'</span>, 900: <span class="c-val">'#0F1F4A'</span>,
+  },
+};
+
+<span class="c-com">// LAYER 2 · Semantic tokens — what the colors mean. Reference primitives.</span>
+<span class="c-com">// Use Chakra's `semanticTokens` API to get automatic light/dark mode handling.</span>
+<span class="c-key">export const</span> semanticTokens = {
+  colors: {
+    <span class="c-com">// Brand</span>
+    <span class="cr">'brand.primary'</span>:        { default: <span class="c-val">'blue.500'</span>, _dark: <span class="c-val">'blue.400'</span> },
+    <span class="cr">'brand.primary.hover'</span>:  { default: <span class="c-val">'blue.600'</span>, _dark: <span class="c-val">'blue.300'</span> },
+    <span class="cr">'brand.primary.tint'</span>:   { default: <span class="c-val">'blue.50'</span>,  _dark: <span class="c-val">'blue.900'</span> },
+    <span class="cr">'brand.dark'</span>:           { default: <span class="c-val">'navy.900'</span>, _dark: <span class="c-val">'navy.50'</span>  },
+    <span class="cr">'brand.accent'</span>:         { default: <span class="c-val">'lime.500'</span>, _dark: <span class="c-val">'lime.500'</span> },
+    <span class="cr">'brand.accent.tint'</span>:    { default: <span class="c-val">'lime.100'</span>, _dark: <span class="c-val">'lime.900'</span> },
+    <span class="cr">'brand.accent.dark'</span>:    { default: <span class="c-val">'lime.700'</span>, _dark: <span class="c-val">'lime.100'</span> },
+
+    <span class="c-com">// Background</span>
+    <span class="cr">'bg.canvas'</span>:    { default: <span class="c-val">'neutral.50'</span>,  _dark: <span class="c-val">'navy.900'</span> },
+    <span class="cr">'bg.surface'</span>:   { default: <span class="c-val">'white'</span>,       _dark: <span class="c-val">'navy.700'</span> },
+    <span class="cr">'bg.muted'</span>:     { default: <span class="c-val">'neutral.100'</span>, _dark: <span class="c-val">'navy.500'</span> },
+    <span class="cr">'bg.inverse'</span>:   { default: <span class="c-val">'navy.900'</span>,    _dark: <span class="c-val">'neutral.50'</span> },
+
+    <span class="c-com">// Text</span>
+    <span class="cr">'text.primary'</span>:    { default: <span class="c-val">'navy.900'</span>,    _dark: <span class="c-val">'neutral.50'</span> },
+    <span class="cr">'text.secondary'</span>:  { default: <span class="c-val">'neutral.700'</span>, _dark: <span class="c-val">'neutral.200'</span> },
+    <span class="cr">'text.tertiary'</span>:   { default: <span class="c-val">'neutral.600'</span>, _dark: <span class="c-val">'neutral.300'</span> },
+    <span class="cr">'text.disabled'</span>:   { default: <span class="c-val">'neutral.500'</span>, _dark: <span class="c-val">'neutral.500'</span> },
+    <span class="cr">'text.eyebrow'</span>:    { default: <span class="c-val">'blue.500'</span>,    _dark: <span class="c-val">'blue.300'</span> },
+
+    <span class="c-com">// Borders</span>
+    <span class="cr">'border.subtle'</span>:   { default: <span class="c-val">'neutral.200'</span>, _dark: <span class="c-val">'navy.500'</span>  },
+    <span class="cr">'border.strong'</span>:   { default: <span class="c-val">'neutral.300'</span>, _dark: <span class="c-val">'navy.200'</span>  },
+    <span class="cr">'border.focus'</span>:    { default: <span class="c-val">'blue.500'</span>,    _dark: <span class="c-val">'blue.400'</span>  },
+
+    <span class="c-com">// Status — five states, each with tint/base/dark</span>
+    <span class="cr">'status.danger'</span>:        { default: <span class="c-val">'red.500'</span>,    _dark: <span class="c-val">'red.500'</span>    },
+    <span class="cr">'status.danger.tint'</span>:   { default: <span class="c-val">'red.100'</span>,    _dark: <span class="c-val">'red.900'</span>    },
+    <span class="cr">'status.danger.dark'</span>:   { default: <span class="c-val">'red.900'</span>,    _dark: <span class="c-val">'red.100'</span>    },
+
+    <span class="cr">'status.critical'</span>:      { default: <span class="c-val">'orange.500'</span>, _dark: <span class="c-val">'orange.500'</span> },
+    <span class="cr">'status.critical.tint'</span>: { default: <span class="c-val">'orange.100'</span>, _dark: <span class="c-val">'orange.900'</span> },
+    <span class="cr">'status.critical.dark'</span>: { default: <span class="c-val">'orange.900'</span>, _dark: <span class="c-val">'orange.100'</span> },
+
+    <span class="cr">'status.warning'</span>:       { default: <span class="c-val">'amber.500'</span>,  _dark: <span class="c-val">'amber.500'</span>  },
+    <span class="cr">'status.warning.tint'</span>:  { default: <span class="c-val">'amber.100'</span>,  _dark: <span class="c-val">'amber.900'</span>  },
+    <span class="cr">'status.warning.dark'</span>:  { default: <span class="c-val">'amber.900'</span>,  _dark: <span class="c-val">'amber.100'</span>  },
+
+    <span class="cr">'status.info'</span>:          { default: <span class="c-val">'purple.500'</span>, _dark: <span class="c-val">'purple.500'</span> },
+    <span class="cr">'status.info.tint'</span>:     { default: <span class="c-val">'purple.100'</span>, _dark: <span class="c-val">'purple.900'</span> },
+    <span class="cr">'status.info.dark'</span>:     { default: <span class="c-val">'purple.900'</span>, _dark: <span class="c-val">'purple.100'</span> },
+
+    <span class="cr">'status.success'</span>:       { default: <span class="c-val">'lime.500'</span>,   _dark: <span class="c-val">'lime.500'</span>   },
+    <span class="cr">'status.success.tint'</span>:  { default: <span class="c-val">'lime.100'</span>,   _dark: <span class="c-val">'lime.900'</span>   },
+    <span class="cr">'status.success.dark'</span>:  { default: <span class="c-val">'lime.700'</span>,   _dark: <span class="c-val">'lime.100'</span>   },
+  },
+};
+
+<span class="c-com">// LAYER 3 · Component usage — only ever references semantic tokens</span>
+&lt;Button bg=<span class="c-val">"brand.primary"</span> color=<span class="c-val">"text.on.brand"</span>&gt;Show me how&lt;/Button&gt;
+&lt;Heading color=<span class="c-val">"text.primary"</span>&gt;Your business as an asset&lt;/Heading&gt;
+&lt;Badge bg=<span class="c-val">"status.success.tint"</span> color=<span class="c-val">"status.success.dark"</span>&gt;Above target&lt;/Badge&gt;
+&lt;Box bg=<span class="c-val">"bg.canvas"</span>&gt;{children}&lt;/Box&gt;</div>
+  </div>
+
+</div>
+
+</body>
+</html>
