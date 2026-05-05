@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brillian — Design System</title>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -152,7 +152,7 @@
     --brillian-border-default: var(--brillian-border-subtle);
 
     /* Typography */
-    --brillian-font-sans: 'Google Sans', 'Google Sans Text', -apple-system, sans-serif;
+    --brillian-font-sans: 'Manrope', -apple-system, sans-serif;
     --brillian-font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
     --brillian-text-xs: 11px;
@@ -189,7 +189,7 @@
     --brillian-space-12: 48px;
 
     /* Radii */
-    --brillian-radius-button: 4px;
+    --brillian-radius-xs: 4px;
     --brillian-radius-sm: 6px;
     --brillian-radius-md: 8px;
     --brillian-radius-lg: 12px;
@@ -662,7 +662,7 @@
     align-items: center;
     gap: var(--brillian-space-2);
     padding: 10px 18px;
-    border-radius: var(--brillian-radius-button);
+    border-radius: var(--brillian-radius-xs);
     font-family: var(--brillian-font-sans);
     font-size: var(--brillian-text-base);
     font-weight: var(--brillian-weight-medium);
@@ -872,7 +872,7 @@
     <p class="pg-cover-sub">Tokens, components, and usage rules for the Brillian business valuation and financial health platform. Built as a two-layer Chakra system — primitive color ramps underneath, semantic role-based tokens on top. Components consume the semantic layer only.</p>
     <div class="pg-cover-meta">
       <div class="pg-cover-meta-item"><strong>Architecture</strong>Primitive + semantic</div>
-      <div class="pg-cover-meta-item"><strong>Typeface</strong>Google Sans</div>
+      <div class="pg-cover-meta-item"><strong>Typeface</strong>Manrope</div>
       <div class="pg-cover-meta-item"><strong>Token format</strong>Chakra-compatible</div>
     </div>
   </div>
@@ -1432,7 +1432,7 @@
       <div class="pg-section-num">08</div>
       <div class="pg-section-title">Typography</div>
     </div>
-    <p class="pg-section-desc">Google Sans across all surfaces. Two weights — 500 medium for emphasis, 400 regular for body. Headings stay in medium, never bold or semibold.</p>
+    <p class="pg-section-desc">Manrope across all surfaces. Two weights — 500 medium for emphasis, 400 regular for body. Headings stay in medium, never bold or semibold.</p>
 
     <div class="pg-type-grid pg-type-grid-head">
       <div>Sample</div>
@@ -1566,12 +1566,12 @@
       <div class="pg-section-num">10</div>
       <div class="pg-section-title">Border radius</div>
     </div>
-    <p class="pg-section-desc">Six radii cover every surface in the system. Buttons get a sharp <code>radius.button</code> (4px) that sets them apart from pills — a deliberate corner language that reads more financial-product, less consumer-app. Cards default to <code>radius.lg</code>, pills always use <code>radius.pill</code>, micro-elements use <code>radius.sm</code>.</p>
+    <p class="pg-section-desc">Six radii cover every surface in the system. Buttons get a sharp <code>radius.xs</code> (4px) that sets them apart from pills — a deliberate corner language that reads more financial-product, less consumer-app. Cards default to <code>radius.lg</code>, pills always use <code>radius.pill</code>, micro-elements use <code>radius.sm</code>.</p>
 
     <div class="pg-radii-grid">
       <div class="pg-radii-card">
         <div class="pg-radii-shape" style="border-radius: 4px;"></div>
-        <div class="pg-radii-name">radius.button</div>
+        <div class="pg-radii-name">radius.xs</div>
         <div class="pg-radii-value">4px</div>
       </div>
       <div class="pg-radii-card">
@@ -1603,7 +1603,7 @@
 
     <div class="pg-semantic-callout" style="margin-top: 24px;">
       <span class="pg-semantic-callout-tag">Exception</span>
-      Marketing-site CTA buttons use <code>radius.pill</code> (100px) for a friendlier feel — a deliberate exception to the 4px button rule. Inside product UI, buttons remain sharp at <code>radius.button</code> (4px) to read as a financial tool.
+      Marketing-site CTA buttons use <code>radius.pill</code> (100px) for a friendlier feel — a deliberate exception to the 4px button rule. Inside product UI, buttons remain sharp at <code>radius.xs</code> (4px) to read as a financial tool.
     </div>
   </div>
 
@@ -1809,7 +1809,7 @@
       <div class="pg-naming-row">
         <div style="font-size: 11px; color: #6B7280;">Radius</div>
         <div class="pg-naming-token">radii.button</div>
-        <div class="pg-naming-token">--brillian-radius-button</div>
+        <div class="pg-naming-token">--brillian-radius-xs</div>
       </div>
       <div class="pg-naming-row">
         <div style="font-size: 11px; color: #6B7280;">Typography</div>
